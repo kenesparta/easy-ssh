@@ -1,23 +1,40 @@
 package main
 
 import (
+	"easy_ssh/ssh/entity"
+	"easy_ssh/storage"
 	"fmt"
-	"io/ioutil"
 	"log"
 )
 
-func check(e error) {
-	if nil != e {
-		log.Println(e)
-	}
-}
-
-func readFile(fileName string) {
-	dat, err := ioutil.ReadFile(fileName)
-	check(err)
-	fmt.Print(string(dat))
-}
-
 func main() {
-	readFile("config")
+	var cfgs entity.Configs
+	var cf entity.Config
+
+	c, err := storage.SqlLite("easy_ssh.db")
+	if nil != err {
+		log.Println(err)
+	}
+
+	r, err := c.Query("SELECT * FROM hosts")
+	if nil != err {
+		log.Println(err)
+	}
+
+	for r.Next() {
+		err := r.Scan(
+			&cf.Id,
+			&cf.Host,
+			&cf.HostName,
+			&cf.User,
+			&cf.IdentitiesOnly,
+			&cf.IdentityFile,
+			&cf.Port,
+		)
+		if nil != err {
+			log.Println(err)
+		}
+		cfgs.Cgs = append(cfgs.Cgs, cf)
+	}
+	fmt.Println(cfgs.ToString())
 }
