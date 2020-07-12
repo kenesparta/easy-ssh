@@ -1,4 +1,6 @@
+backend/config.toml
 backend/config
 .vscode
 .idea
 *.db
+backend/easy_ssh
