@@ -1,6 +1,8 @@
 package entity
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type iConfig interface {
 	ToString() string
@@ -42,12 +44,12 @@ func (c *Config) ToString() string {
 		c.Port)
 }
 
-func (c *Configs) isHostRepeated() bool {
+func (cgs *Configs) isHostRepeated() bool {
 	return false
 }
 
-func (c *Configs) ToString() (s string) {
-	for _, p := range c.Cgs {
+func (cgs *Configs) ToString() (s string) {
+	for _, p := range cgs.Cgs {
 		s += p.ToString() + "\n"
 	}
 	return

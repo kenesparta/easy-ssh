@@ -1,15 +1,16 @@
 package main
-
 import (
-	"easy_ssh/ssh/entity"
+	e "easy_ssh/ssh/entity"
 	"easy_ssh/storage"
 	"fmt"
 	"log"
 )
 
+
 func main() {
-	var cfgs entity.Configs
-	var cf entity.Config
+
+	var cfgs e.Configs
+	var cf e.Config
 
 	c, err := storage.SqlLite("easy_ssh.db")
 	if nil != err {
